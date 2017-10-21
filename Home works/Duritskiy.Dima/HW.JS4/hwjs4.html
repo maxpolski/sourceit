@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let array = [12, 134, 14, 256, 47, 48, 91, 215];
+        let val = 14;
+        let val2 = 13;
+        let isTrue;
+
+        sort = (mas) =>{
+            let variable = 0;
+            let result = [];
+                for (let j = 0; j<mas.length; j++){
+                    for (let i = 0; i < mas.length; i++){
+                            if (mas[i] > mas[i+1]){
+                                variable = mas[i];
+                                mas[i] = mas[i+1];
+                                mas[i+1] = variable;
+                            }
+                        }
+                    }
+                console.log(mas);
+            }
+
+        isIncludesValue = (mas, value) =>{
+            for (let i = 0; i < mas.length; i++){
+                if(mas[i] === value){
+                    isTrue = true; break;
+                } else { 
+                    isTrue = false; 
+                }
+            }
+            console.log(isTrue);
+        }
+
+        isIncludesValue(array, val);
+        isIncludesValue(array, val2);
+        isIncludesValue(array, 91);
+        sort(array);
+
+
+    </script>
+</body>
+</html>
