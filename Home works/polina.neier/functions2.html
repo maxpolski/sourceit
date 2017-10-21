@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<head>
+    <meta charset = "UTF-8">
+    <title>task2</title>
+</head>
+<body>
+<script>
+
+var arr = [1, 'b', 125, 'hello'];
+
+function isIncludesValue(array, value) {
+    for (var i = 0; i < array.length; i++) {
+        if (value == array[i]) {
+            return true;
+        }
+    }
+return false;
+}
+
+console.log(isIncludesValue(arr, 'hello'));
+console.log(isIncludesValue(arr, 'world'));
+</script>
+</body>
+</html>

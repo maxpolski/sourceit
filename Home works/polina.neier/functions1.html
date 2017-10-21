@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<head>
+    <meta charset = "UTF-8">
+    <title>task1</title>
+</head>
+<body>
+<script>
+
+var arr = [145, 12, 84, 36, 59];
+
+function sortArr(arrToSort) {
+    for (var i = 0; i < arrToSort.length - 1; i++) {
+        for (var j = 0; j < arrToSort.length - 1; j++) {
+            if (arrToSort[j] > arrToSort[j+1]) {
+                var min = arrToSort[j+1];
+                arrToSort[j+1] = arrToSort[j];
+                arrToSort[j] = min;
+            }
+        }
+    } return arrToSort;
+}
+
+console.log(sortArr(arr));
+
+</script>
+</body>
+</html>
