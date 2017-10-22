@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=EDGE">
+  <title>Task 1</title>
+</head>
+
+<body>
+  <script>
+    var arr = [1, 'b', 125, 'hello'];
+    let val;
+    let message;
+    while (true) {
+      val = prompt('Enter value');
+      if (typeof (val) != "undefined") break;
+    }
+
+    function isIncludesValue(arrayToCheck, value) {
+      for (let i = 0; i < arrayToCheck.length; i++) {
+        if (arrayToCheck[i] == value) {
+          message = 'Value is present in the array.';
+          break;
+        }
+      }
+      if (typeof (message) == "undefined")
+        message = 'Value is not in the array.';
+    }
+
+    isIncludesValue(arr, val);
+    console.log(val);
+    console.log(message);
+  </script>
+</body>
+
+</html>
