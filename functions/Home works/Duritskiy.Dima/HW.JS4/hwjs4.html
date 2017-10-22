@@ -29,10 +29,15 @@
             }
 
         isIncludesValue = (mas, value) =>{
+            // лучше здесь объявить переменную includes
+            // let isIncludes = false;
             for (let i = 0; i < mas.length; i++){
                 if(mas[i] === value){
                     isTrue = true; break;
-                } else { 
+                    // Здесь можно просто return true сделать
+                } 
+                // если сделать все вышеописанное, то else вообще не нужен
+                else {
                     isTrue = false; 
                 }
             }
