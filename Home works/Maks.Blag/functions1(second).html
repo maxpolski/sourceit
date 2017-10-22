@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sort2</title>
+</head>
+<body>
+    <script>
+        var arr = [ 145, 12, 84, 36, 59 ];
+        
+        function sort(arrToSort) {
+            var n = arr.length;
+            for (var i = 0; i < n-1; i++) {
+                for (var j = 0; j < n-1-i; j++) {
+                    if (arr[j+1] < arr[j]) {
+                        var t = arr[j+1];
+                        arr[j+1] = arr[j];
+                        arr[j] = t;
+                    }
+                }
+            }                
+        }
+        sort(arr); 
+        console.log(arr);
+    </script>
+</body>
+</html>
