@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    var arr = [145,12,84,36,59];
+    function sorti(a,b){
+        if(a>b) return true;
+        if(a<b) return false;
+    }
+    arr.sort(sorti);
+    alert(arr);
+    var two = confirm("want to try another way?");
+    if (two===true){
+    
+        var n = arr.length;
+    function sort(arrTosort){
+        for (var i = 0; i < n; i++) {
+    for (var j = 0; j < n-i; j++) {
+        if (arr[j+1] < arr[j]) {
+            var c = arr[j+1];
+            arr[j+1] = arr[j];
+            arr[j] = c;
+        }
+    }
+} console.log(arrTosort);
+    }
+    sort(arr);
+}else alert('OK');
+    
+    </script>
+</body>
+</html>
