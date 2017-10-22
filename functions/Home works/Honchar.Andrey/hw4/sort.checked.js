@@ -4,7 +4,7 @@ let arr1 = [78, 61, 33, 156, 212, 0, 1, 32, 19, 68, 87, 11, 10];
 function sort(arrToSort) {
     let temp;
     let exit = false;
-
+    // нужно было использовать сортировку из примера
     while (!exit){
         exit = true;
         for(let i=0; i<arrToSort.length; i++){
