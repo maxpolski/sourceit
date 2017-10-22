@@ -7,6 +7,23 @@
     <title>function2</title>
 </head>
 <body>
+
+    <script>
+        var arr = [1, 'b', 125, 'hello'];
+        function isIncludeValue(arr, value) {
+            for (var i = 0; i < arr.length; i++) {
+                if (value == arr[i]) {
+                    return true;
+                }      
+            }
+            return false;
+        }
+        
+        console.log(isIncludeValue(arr, 'hello'));
+        console.log(isIncludeValue(arr, 'world'));
+        console.log(isIncludeValue(arr, 1));
+        
+        </script>
     
 </body>
 </html>

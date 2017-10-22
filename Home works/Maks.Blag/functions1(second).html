@@ -10,20 +10,25 @@
     <script>
         var arr = [ 145, 12, 84, 36, 59 ];
         
+        var arr2 = [3, 7, 5, 8, 2];
+        
         function sort(arrToSort) {
-            var n = arr.length;
+            var n = arrToSort.length;
             for (var i = 0; i < n-1; i++) {
                 for (var j = 0; j < n-1-i; j++) {
-                    if (arr[j+1] < arr[j]) {
-                        var t = arr[j+1];
-                        arr[j+1] = arr[j];
-                        arr[j] = t;
+                    if (arrToSort[j+1] < arrToSort[j]) {
+                        var t = arrToSort[j+1];
+                        arrToSort[j+1] = arrToSort[j];
+                        arrToSort[j] = t;
                     }
                 }
             }                
         }
+
         sort(arr); 
+        sort(arr2);
         console.log(arr);
+        console.log(arr2);
     </script>
 </body>
 </html>
