@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Function 1 - Sort</title>
+</head>
+<body>
+	<script>
+		var arr = [7, 12, 85, 33, 29, 1.5, 98, 5.9, -8, -7.4, 0];
+
+		function arrSort(arr) {
+			arr = arr ? arr : [];
+			var n = arr.length-1;
+			for (var i = 0; i < n; i++) {
+		    for (var j = 0; j < n-i; j++) {
+	        if (arr[j] > arr[j+1]) {
+            var t = arr[j+1];
+            arr[j+1] = arr[j];
+            arr[j] = t;
+	        }
+		    }
+			}
+			return arr;
+		};
+
+		console.log(arrSort(arr));
+	</script>
+</body>
+</html>

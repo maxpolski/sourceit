@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Function 2 - In Array</title>
+</head>
+<body>
+	<script>
+		var arr = ['Hi', 0, 12, null, 'null', 'undefined'];
+
+		function inArray(arr, val) {
+			arr = arr ? arr : [];
+			for (var i = 0; i < arr.length; i++) {
+				if (val === arr[i]) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		console.log(inArray(arr, 'Hi'));
+		console.log(inArray(arr, 0));
+		console.log(inArray(arr, 12));
+		console.log(inArray(arr, null));
+		console.log(inArray(arr, 'null'));
+		console.log(inArray(arr, 'undefined'));
+		
+		console.log(inArray(arr, undefined));
+		console.log(inArray(arr, NaN));
+		console.log(inArray(arr, true));
+		console.log(inArray(arr, 'John'));
+		console.log(inArray(arr, 0.1));
+		console.log(inArray(arr, '0'));
+	</script>
+</body>
+</html>
