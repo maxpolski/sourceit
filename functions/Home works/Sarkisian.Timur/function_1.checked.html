@@ -9,15 +9,6 @@
 <body>
     <script>
     var arr = [145,12,84,36,59];
-    function sorti(a,b){
-        if(a>b) return true;
-        if(a<b) return false;
-    }
-    // нужно сделать как в примере, не используя встроенных методов массива, в данном случае Array.sort
-    arr.sort(sorti);
-    alert(arr);
-    var two = confirm("want to try another way?");
-    if (two===true){
     
         var n = arr.length;
     function sort(arrTosort){
@@ -31,9 +22,7 @@
     }
 } console.log(arrTosort);
     }
-    sort(arr);
-}else alert('OK');
-    
+    sort(arr);    
     </script>
 </body>
 </html>
