@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=EDGE">
-  <title>Task 1</title>
+  <title>Task 2</title>
 </head>
 
 <body>
@@ -18,7 +18,7 @@
       if (typeof (val) != "undefined") break;
     }
 
-    function isIncludesValue(arrayToCheck, value) {
+    let isIncludesValue = (arrayToCheck, value) => {
       for (let i = 0; i < arrayToCheck.length; i++) {
         if (arrayToCheck[i] == value) {
           message = 'Value is present in the array.';
@@ -27,11 +27,10 @@
       }
       if (typeof (message) == "undefined")
         message = 'Value is not in the array.';
+      return message;
     }
-
-    isIncludesValue(arr, val);
-    console.log(val);
-    console.log(message);
+    
+    console.log(isIncludesValue(arr, val));
   </script>
 </body>
 

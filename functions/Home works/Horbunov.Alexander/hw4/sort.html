@@ -17,12 +17,11 @@
       arr[i] = Math.floor(Math.random() * 101);
     }
 
-    function sort(arrToSort) {
-      let temp;
-
+    let sort = (arrToSort) => {
       for (let i = 0; i < arrToSort.length; i++) {
         for (let j = 0; j < arrToSort.length; j++) {
           if (arrToSort[i] > arrToSort[i + j]) {
+            let temp;
             temp = arrToSort[i + j];
             arrToSort[i + j] = arrToSort[i];
             arrToSort[i] = temp;
@@ -32,8 +31,7 @@
       return arrToSort;
     }
 
-    sort(arr);
-    console.log(arr);
+    console.log(sort(arr));
 
   </script>
 </body>
