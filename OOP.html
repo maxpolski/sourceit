@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>OOP</title>
+</head>
+<body>
+    <script>
+        let article = {
+            title: 'Long Life', 
+            body: 'Hello!',
+            date: 12345678,
+            auther: 'Hommer',
+            sayHello: function() {
+                console.log("Hello!!!");
+            }    
+        };
+
+        console.log(article.body);
+        article.title = "Good!";
+        console.log(article);
+        article.sayHello();
+
+        function Animal (num_of_legs, name, type, phrase){
+            this.num_of_legs = num_of_legs;
+            this.name = name;
+            this._type = type;
+            this.phrase = phrase;
+            this.saySomething = function(){console.log(this.phrase)};
+        }
+
+        const cow = new Animal(4, "Burenka", 'cow', 'Moooo');
+        const dog = new Animal(4, "Barbosa", 'dog');
+        cow.saySomething();
+        console.log(cow);
+
+        Animal.prototype.saySomething = function () {console.log(this.pharse)};
+
+        const cat = new Animal(4, "Fozy", 'cat', 'Myau');
+        cat.saySomething();
+
+        console.log(cat.type); //undefinded
+
+        function Dog(num_of_legs, name, breed){
+            Animal.call(this, num_of_legs, name);
+        }
+
+        function Cat(num_of_legs, name, breed){
+            Animal.call(this, num_of_legs, name);
+        }
+        
+        const dog2 = new Dog(4, 'Bobik', 'Pudel');
+        Animal.prototype.sayMyName = function (){console.log(this.name)};
+        dog2.sayMyName();//Here is an error, why?
+        //console.log(dog2);
+    </script>
+</body>
+</html>
