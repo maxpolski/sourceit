@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>task1</title>
+</head>
+<body>
+<script>
+
+
+var arr = [ 145, 12, 84, 36, 59 ];
+
+function sort(arrToSort) {
+
+var n = arrToSort.length;
+for (var i = 0; i < n - 1; i++) {
+    for (var j = 0; j < n - 1 - i; j++) {
+        if (arrToSort[j+1] < arrToSort[j]) {
+            var t = arrToSort[j+1];
+            arrToSort[j+1] = arrToSort[j];
+            arrToSort[j] = t;
+        	}
+   		 }
+
+	}
+	return arrToSort;
+}                
+
+console.log(sort(arr));
+
+</script>
+</body>
+</html>
