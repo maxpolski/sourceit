@@ -55,6 +55,33 @@
         Animal.prototype.sayMyName = function (){console.log(this.name)};
         dog2.sayMyName();//Here is an error, why?
         //console.log(dog2);
+
+        // Here is described the inheritance of classes in js
+        // Here is described the inheritance of classes in js
+        // The method Call or Apply as I understood inherits only the properties of the class
+        // but not its prototype
+        // https://learn.javascript.ru/class-inheritance
+
+        /*
+
+        function Animal (num_of_legs, name, type, phrase){
+            this.num_of_legs = num_of_legs;
+            this.name = name;
+            this._type = type;
+            this.phrase = phrase;
+            this.saySomething = function(){console.log(this.phrase)};
+        }
+        Animal.prototype.sayMyName = function (){console.log(this.name)};
+
+        function Dog(num_of_legs, name, breed){
+          Animal.call(this, num_of_legs, name);
+        }
+        Dog.prototype = Object.create(Animal.prototype);
+
+        const dog2 = new Dog(4, 'Bobik', 'Pudel');
+        dog2.sayMyName();
+
+        */
     </script>
 </body>
 </html>
