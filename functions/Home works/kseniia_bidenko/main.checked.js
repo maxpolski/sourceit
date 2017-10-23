@@ -1,7 +1,7 @@
 //1
 
 var arr = [145, 12, 84, 36, 59];
-
+// нужно использовать сортировку пузырьком из примера
 function sort(arrToSort) {
 	newarr = arrToSort.sort(function(a,b){
 		return a-b;
