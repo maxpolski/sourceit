@@ -16,7 +16,7 @@ function Cat (name) {
 
 то мы еще должны сделать
 
-Cat.prototype = Object.create(animal.prototype);
+Cat.prototype = Object.create(Animal.prototype);
 
 это нужно для того, чтобы методы из Animal появились в Cat.
 т е, чтобы можно было сделать 
