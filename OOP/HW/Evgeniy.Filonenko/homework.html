@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>OOP</title>
+</head>
+<body>
+	<script>
+		/**
+		* First class Machine
+		*/
+		function Machine(name, type) {
+			this.name = name;
+			this.type = type;
+		}
+
+		Machine.prototype.turnOn = function() {
+			console.log(this.type + ' ' + this.name + ' is on');
+		}
+
+		Machine.prototype.turnOff = function() {
+			console.log(this.type + ' ' + this.name + ' is off');
+		}
+
+		/**
+		* Second class CoffeeMachine
+		*/
+		function CoffeeMachine(name, type, numOfProgramms, manufacturer) {
+			Machine.apply(this, [name, type]);
+			this.numOfProgramms = numOfProgramms;
+			this.manufacturer = manufacturer;
+		};
+
+		CoffeeMachine.prototype = Object.create(Machine.prototype);
+
+		CoffeeMachine.prototype.makeCoffee = function() {
+			console.log('Your coffee is ready');
+		};
+
+		CoffeeMachine.prototype.makeLatte = function() {
+			console.log('Your latte is ready');
+		};
+
+		const coffee = new CoffeeMachine('Bosch', 'Coffee Machine', 2, 'Germany');
+
+		coffee.turnOn();
+		coffee.makeCoffee();
+		coffee.makeLatte();
+		coffee.turnOff();
+
+
+		/**
+		* Third class CoffeeMachine
+		*/
+		function Microwave(name, type) {
+			Machine.apply(this, [name, type]);
+			this.disches = [{
+				nameOfDish: 'potato',
+				time: 30
+			},
+			{
+				nameOfDish: 'pizza',
+				time: 45
+			}];
+		};
+
+		Microwave.prototype = Object.create(Machine.prototype);
+
+		Microwave.prototype.cookDish = function(nameOfDish) {
+			let time,
+					that = this;
+
+			this.disches.find(function(elem, index, arr) {
+
+				if(nameOfDish === elem.nameOfDish) {
+					time = +elem.time;
+					console.log('The '+nameOfDish+' is cooked, it will be ready in '+time+' seconds.')
+					return true;
+				}
+				return false;
+
+			});
+
+			if(time !== undefined) {
+				setTimeout(function(){
+					alert(nameOfDish + " is ready!");
+					that.turnOff();
+				}, time * 1000);
+			} else {
+				alert(this.type + ' does not know how to cook '+ nameOfDish +'!');
+				that.turnOff();
+			}
+
+		};
+
+		const microwave = new Microwave('Bosch', 'Microwave');
+		
+		microwave.turnOn();
+  	microwave.cookDish('potato');
+
+	</script>
+</body>
+</html>
