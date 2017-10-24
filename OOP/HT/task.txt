@@ -1,0 +1,16 @@
+Создать класс (функцию конструктор) Machine со свойствами name и type;
+Добваить ей два метода turnOn и turnOff;
+
+Создать класс (функцию конструктор) CoffeeMachine со свойствами,
+  унаследовать его от Machine и добавить свои свойства: numOfProgramms, manufacturer,
+  добавить свои методы: makeCoffee, makeLatte;
+
+Создать класс (функцию конструктор) Microwave со свойствами,
+  унаследовать его от Machine и добавить свои свойства: disches(это должен быть массив объектов),
+  например [{ nameOfDish: 'potato', time: 30 }, { nameOfDish: 'pizza', time: 45 }], здесь nameOfDish - название блюда,
+  а time - время приготовления;
+  добавить метод cookDish, который будет принимать, как параметр название блюда, по названию будет назодить в описанном выше массиве
+  время приготовления блюда, с помощью метода find https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/find,
+  исходя из значения time будет запускать таймер и по истечении оного - выводить алерт, например:
+    const microwave = new Microwave('Bosch');
+    microwave.cookDish('potato'); //через 30 секунд выведет "Potato is ready!";
