@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>OOP</title>
+</head>
+<body>
+    <script>
+        function Machine(name,type) {
+            this.name = name;
+            this.type = type;
+            let turn;
+            this.turnOn = function() {
+                this.turn = true;
+            }
+            this.turnOff = function() {
+                this.turn = false;
+            }
+        }
+
+        function CoffeeMachine(name,type) {
+            Machine.apply(this, arguments);
+            this.makeCoffee = function() {
+                if(this.turn) {
+                    console.log('Take your coffee, please!');
+                } else {
+                    console.log('Turn on, please.');
+                }
+            }
+            this.makeLate = function() {
+                if(this.turn) {
+                    console.log('Take your late, please!');
+                } else {
+                    console.log('Turn on, please.');
+                }
+            }
+        }
+
+        CoffeeMachine.prototype = Object.create(Machine.prototype);
+
+        function Microwave(name,type,dishes) {
+            Machine.apply(this, arguments);
+            this.dishes = dishes;
+            this.cookDish = function(dish) {
+                let obj = dishes.find(o => o.nameOfDish === dish);
+                let time = obj.time * 1000;
+                console.log(time);
+                function ready() {
+                    alert(obj.nameOfDish + ' is ready');
+                }
+                setTimeout(ready,time);
+            }
+        }
+
+        Microwave.prototype = Object.create(Machine.prototype);
+
+        const recepies = [{ nameOfDish: 'potato', time: 30 }, { nameOfDish: 'pizza', time: 45 }];
+    </script>
+</body>
+</html>
