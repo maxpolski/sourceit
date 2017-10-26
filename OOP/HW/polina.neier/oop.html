@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<head>
+    <meta charset = "UTF-8">
+    <title>oop1</title>
+</head>
+<body>
+<script>
+
+"use strict";
+
+function Machine (name, type) {
+    this.name = name;
+    this.type = type;
+}
+
+Machine.prototype.turnOn = function(){
+    console.log('Machine ' + this.name + ' is on');
+};
+
+Machine.prototype.turnOff = function(){
+    console.log('Machine ' + this.name + ' is off');
+}
+
+function CoffeMachine (name, type, numOfProgramms, manufacturer) {
+    Machine.apply(this, [name, type]);
+    this.numOfProgramms = numOfProgramms;
+    this.manufacturer = manufacturer; 
+}
+
+CoffeMachine.prototype = Object.create(Machine.prototype);
+
+CoffeMachine.prototype.makeCoffe = function(){
+    console.log('Coffe please');
+}
+
+CoffeMachine.prototype.makeLatte = function(){
+    console.log('Latte please');
+}
+
+function Microvawe (name, type, dishes){
+    Machine.apply(this, [name, type, dishes]);
+    this.dishes = dishes;
+}
+
+Microvawe.prototype = Object.create(Machine.prototype);
+
+Microvawe.prototype.cookDish = function(nameOfDish, time){
+    this.nameOfDish = nameOfDish;
+    this.time = time;
+    let currentDish = this.dishes.find((elem, ind, arr) => {return(this.nameOfDish == elem.nameOfDish)});
+    setTimeout(function() {alert(currentDish.nameOfDish + ' is ready!')}, currentDish.time*1000);
+}
+
+const machine = new Machine('super' , 'puper');
+const coffemachine = new CoffeMachine('super1' , 'puper1', 3 , 'dell');
+const microvawe = new Microvawe('s2', 'p2', [{nameOfDish:'Borshch', time:30}, {nameOfDish:'Ucha', time:40}]);
+
+microvawe.cookDish('Ucha');
+
+coffemachine.turnOn();
+coffemachine.makeLatte();
+machine.turnOff();
+coffemachine.makeCoffe();
+coffemachine.turnOff();
+microvawe.turnOn();
+
+
+</script>
+</body>
+</html>
