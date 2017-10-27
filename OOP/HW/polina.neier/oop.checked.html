@@ -45,7 +45,7 @@ function Microvawe (name, type, dishes){
 Microvawe.prototype = Object.create(Machine.prototype);
 
 Microvawe.prototype.cookDish = function(nameOfDish, time){
-    this.nameOfDish = nameOfDish;
+    this.nameOfDish = nameOfDish; // тут не нужно класть это все в this. т е ты же не будешь потом ими пользоваться, тут нужно с аргументами функции напрямую работать
     this.time = time;
     let currentDish = this.dishes.find((elem, ind, arr) => {return(this.nameOfDish == elem.nameOfDish)});
     setTimeout(function() {alert(currentDish.nameOfDish + ' is ready!')}, currentDish.time*1000);
