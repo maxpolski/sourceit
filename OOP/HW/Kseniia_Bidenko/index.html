@@ -1,0 +1,87 @@
+<!-- Создать класс (функцию конструктор) Machine со свойствами name и type;
+Добваить ей два метода turnOn и turnOff;
+
+Создать класс (функцию конструктор) CoffeeMachine со свойствами,
+  унаследовать его от Machine и добавить свои свойства: numOfProgramms, manufacturer,
+  добавить свои методы: makeCoffee, makeLatte;
+
+Создать класс (функцию конструктор) Microwave со свойствами,
+  унаследовать его от Machine и добавить свои свойства: disches(это должен быть массив объектов),
+  например [{ nameOfDish: 'potato', time: 30 }, { nameOfDish: 'pizza', time: 45 }], здесь nameOfDish - название блюда,
+  а time - время приготовления;
+  добавить метод cookDish, который будет принимать, как параметр название блюда, по названию будет назодить в описанном выше массиве
+  время приготовления блюда, с помощью метода find https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/find,
+  исходя из значения time будет запускать таймер и по истечении оного - выводить алерт, например:
+    const microwave = new Microwave('Bosch');
+    microwave.cookDish('potato'); //через 30 секунд выведет "Potato is ready!";
+ -->
+ <!DOCTYPE html>
+ <html>
+ <head>
+ 	<title>HW</title>
+ </head>
+ <body>
+
+ 	<script>
+
+ 		function Machine(name, type){
+ 			this.name = name;
+ 			this.type = type; 			
+ 		}
+
+ 		Machine.prototype.turnOn = function(){
+ 			console.log('Machine ' + this.name + " is turned on");
+ 		}
+ 		Machine.prototype.turnOff = function(){
+ 			console.log('Machine ' + this.name + " is turned off");
+ 		}
+
+ 		function CoffeeMachine(name, type, numOfPrograms, manufacturer){
+ 			this.name = name;
+ 			this.type = type;
+ 			this.numOfPrograms = numOfPrograms;
+ 			this.manufacturer = manufacturer;
+ 		}
+
+ 		CoffeeMachine.prototype = Object.create(Machine.prototype);
+		CoffeeMachine.prototype.constructor = CoffeeMachine;
+
+		CoffeeMachine.prototype.makeCoffee = function(){
+			console.log('Machine ' + this.name + ' is making coffee');
+		}
+
+		CoffeeMachine.prototype.makeLatte = function(){
+			console.log('Machine ' + this.name + ' is making latte');
+		}
+
+ 		function Microwave(name, type, dishes){
+ 			this.name = name;
+ 			this.type = type;
+ 			this.dishes = dishes;
+ 		}
+
+ 		Microwave.prototype = Object.create(Machine.prototype);
+		Microwave.prototype.constructor = Microwave;
+
+		Microwave.prototype.cookDish = function(dish){
+			this.dishes.find(function(element, index, array){
+				if(element.nameOfDish == dish){
+					setTimeout(function(){
+						console.log(element.nameOfDish +' is ready!')
+					}, element.time * 1000);
+				}
+			});
+
+		};
+
+		const Gaggia = new CoffeeMachine('Gaggia', 'Baby class D');
+		Gaggia.turnOn();
+
+		const Whirpool = new Microwave('Whirpool', 'microwave', [{nameOfDish: 'lasagna', time: 45}, {nameOfDish: 'omlette', time: 15}, {nameOfDish: 'cake', time: 23}]);
+
+		Whirpool.cookDish('cake');
+
+ 	</script>
+ 
+ </body>
+ </html>
