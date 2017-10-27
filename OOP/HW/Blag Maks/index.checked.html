@@ -8,26 +8,30 @@
 </head>
 <body>
     <script>
-        // А микроволновка будет?
+        //create class Machine
+
         function Machine(name, type) {
             this.name = name;
             this.type = type;     
         }
-        Machine.prototype.turnOn = function(){
+
+        //create methods
+        Machine.prototype.turnOn = function() {
             console.log(this.name + ' ' + this.type + ' on');
         };
         Machine.prototype.turnOff = function(){
             console.log(this.name + ' ' + this.type + ' off');
         };
 
+        //create second class CoffeeMachine
         function CoffeeMachine(numOfProgramms, manufacturer){
-            Machine.apply(this, arguments)
+            Machine.apply(this, arguments);
             this.numOfProgramms = numOfProgramms;
             this.manufacturer = manufacturer;
         }
-        
+        //inheritance
         CoffeeMachine.prototype = Object.create(Machine.prototype);
-
+        //CoffeeMachines methods
         CoffeeMachine.prototype.makeCoffee = function (){
             console.log("Кофе готов")
         }
@@ -35,11 +39,42 @@
             console.log("Латте готов")
         }
 
-        var nokia = new CoffeeMachine('nokia', 'coffeeMaker', 1, 'poland');
+        const nokia = new CoffeeMachine('nokia', 'coffeeMaker', 1, 'poland'); 
 
         nokia.turnOn();
         nokia.makeCoffee();
         nokia.makeLatte();
+        nokia.turnOff();
+
+
+
+        //create third class 
+        function Microwave(dishes){
+            Machine.apply(this, arguments);
+            this.dishes = [
+            { nameOfDish: 'potato', time: 30 }, 
+            { nameOfDish: 'pizza', time: 45 }
+        ];
+        };
+        
+        Microwave.prototype = Object.create(Machine.prototype);
+        
+        Microwave.prototype.cookDish = function (nameOfDish) {
+           let dish = this.dishes.find(dishes => dishes.nameOfDish === nameOfDish);        
+
+            console.log(dish.nameOfDish + ' is cooking. Wait ' + dish.time + 'sec');
+            setTimeout(function() {
+                alert(dish.nameOfDish + ' is ready');
+                console.log(dish.nameOfDish + ' is ready');
+                samsung.turnOff()
+            }, dish.time * 1000);
+        };
+
+        var samsung = new Microwave('samsung', 'microwave');
+
+        samsung.turnOn();
+        samsung.cookDish('pizza');
+        
     </script>
     
 </body>
