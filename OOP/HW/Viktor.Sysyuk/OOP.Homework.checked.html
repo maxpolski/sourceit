@@ -7,7 +7,7 @@
 <body>
     <script>
          // class#1
-        const Machine = function(name, type){
+        const Machine = function(name, type){ // лучше делать function declaration
                 this.name = name;
                 this.type = type;
             };
@@ -48,7 +48,7 @@
         };
         Microwave.prototype = Object.create(Machine.prototype);
         Microwave.prototype.cookDish = function(nameOfDish){
-            let dish = this.dishes.find(dish => dish.nameOfDish === nameOfDish);
+            let dish = this.dishes.find(dish => dish.nameOfDish === nameOfDish); // лучше const
             setTimeout(function () {
         alert(nameOfDish + ' готово!');
       }, dish.time * 1000);
