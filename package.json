@@ -1,0 +1,14 @@
+{
+  "name": "sourceit",
+  "version": "1.0.0",
+  "description": "SourceIT FE courses working repo",
+  "main": "index.js",
+  "repository": "git@github.com:maxpolski/sourceit.git",
+  "author": "Max Korabekskyi <max_polski@icloud.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0"
+  }
+}
