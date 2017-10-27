@@ -29,7 +29,7 @@
             this.manufacture = manufacture;
         }
         CoffeeMachine.prototype = Object.create(Machine.prototype);
-        CoffeeMachine.prototype.constructor = CoffeeMachine;
+        CoffeeMachine.prototype.constructor = CoffeeMachine; // good catch =)
 
         CoffeeMachine.prototype.makeCoffee = () =>{
             console.log('Making a coffe')
