@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        let dishes = [{ nameOfDish: 'potato', time: 30 }, { nameOfDish: 'pizza', time: 45 }];
+
+        function Machine (name, type){
+            this.name = name;
+            this.type = type;
+        }
+
+        Machine.prototype.turnOn = () =>{
+            console.log(true);
+        }
+
+        Machine.prototype.turnOff = () =>{
+            console.log(false);
+        }
+        function CoffeeMachine (numOfProgramms, manufacture){
+            Machine.apple(this, arguments);
+            this.numOfProgramms = numOfProgramms;
+            this.manufacture = manufacture;
+        }
+        CoffeeMachine.prototype = Object.create(Machine.prototype);
+        CoffeeMachine.prototype.constructor = CoffeeMachine; // good catch =)
+
+        CoffeeMachine.prototype.makeCoffee = () =>{
+            console.log('Making a coffe')
+        }
+
+        CoffeeMachine.prototype.makeLatte = () =>{
+            console.log('Making a latte')
+        }
+
+        function Microwave (dishes){
+            Machine.apply(this, arguments);
+            }
+        
+        Microwave.prototype = Object.create(Machine.prototype);
+        Microwave.prototype.constructor = Microwave;
+
+        Microwave.prototype.cookDish = (dish) =>{
+            dishes.find(function (element, index, array){
+                if(element.nameOfDish == dish){
+					setTimeout(function(){
+						console.log(element.nameOfDish +' is ready!')
+					}, element.time * 1000);
+				};
+            });
+        };
+
+        let microwave = new Microwave('Bosch');
+        microwave.cookDish('potato');
+        
+    </script>
+</body>
+</html>
