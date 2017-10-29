@@ -68,7 +68,7 @@ class Microwave extends Machine {
 
   cookDish(nameOfDish) {
     let time;
-    const that = this;
+    const that = this; // когда ты юзаешь стрелочные функции можно не бояться потерять контекст
     this.disches.find((elem) => {
       if (nameOfDish === elem.nameOfDish) {
         time = +elem.time;
