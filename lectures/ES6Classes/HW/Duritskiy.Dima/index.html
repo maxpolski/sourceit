@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+
+        let dishes = [{ nameOfDish: 'potato', time: 5 }, { nameOfDish: 'pizza', time: 45 }];
+
+        class Machine {
+            constructor(name, type){
+                this.name = name;
+                this.type = type;
+            }
+
+            turnOn(){
+                console.log("Machine is turned on");
+            }
+
+            turnOff(){
+                console.log("Machine is turned off");
+            }
+        }
+
+        class CoffeeMachine extends Machine{
+            constructor(numOfProgramm, manufacturer){
+                super(name);
+                this.numOfProgramm = numOfProgramm;
+                this.manufacturer = manufacturer;
+            }
+
+            makeCoffee(){
+                console.log("Wait, please! Coffee is being made.");
+            }
+
+            makeLatte(){
+                console.log("Wait, please! Latte is being made.");
+            }
+        }
+
+        class Microwave extends Machine{
+            constructor(dishes){
+                super(name);
+                this.dishes = dishes;
+            }
+
+            cookDish(dish){
+                let food = dishes.find(function (element, index, array) {
+                    if (element.nameOfDish === dish){
+                        return [dish.nameOfDish, dish.time];
+                    }
+                });
+                setTimeout(function () {
+                    console.log("The dish - "+ food.nameOfDish +", is ready!");
+                }, 1000*food.time)
+            };
+        }
+
+
+        let microwave = new Microwave('Bosch');
+        let coffeemachine = new CoffeeMachine('Siemens');
+        coffeemachine.turnOn();
+        coffeemachine.makeLatte();
+        microwave.turnOn();
+        microwave.cookDish('potato');
+    </script>
+</body>
+</html>
