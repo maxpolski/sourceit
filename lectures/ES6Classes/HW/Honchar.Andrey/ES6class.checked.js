@@ -46,7 +46,7 @@ class Machine {
     }
 
     cookDish(nameOfDish) {
-        let dish = this.dishes.find(dish => nameOfDish === this.dishes.nameOfDish);
+        let dish = this.dishes.find(dish => nameOfDish === this.dishes.nameOfDish); // что ты получаешь на выходе? и почему let?
         let time = dish.time;
         console.log("Wait....");
         setTimeout(function() {

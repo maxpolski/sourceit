@@ -1,3 +1,5 @@
+// eslint
+
 //class#1
 class Machine {
     constructor(name, type){
