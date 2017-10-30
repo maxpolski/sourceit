@@ -1,4 +1,4 @@
-
+// зачем столько отступов в начале? Много ошибок eslint
         "use strict";
 
         class Machine {
