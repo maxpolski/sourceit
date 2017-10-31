@@ -1,3 +1,5 @@
+// Очень много ошибок eslint
+
 //1.Создать класс (функцию конструктор) Machine со свойствами name и type;
 //Добваить ей два метода turnOn и turnOff;
 class Machine {
