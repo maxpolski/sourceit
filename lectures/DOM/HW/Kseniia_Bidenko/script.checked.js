@@ -1,3 +1,5 @@
+// eslint
+
 const newTodoInput = document.getElementById('newTodo');
 const addTodoButton = document.getElementById('addTodoButton');
 const todoList = document.getElementsByTagName('ul')[0];
