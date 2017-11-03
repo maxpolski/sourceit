@@ -1,4 +1,4 @@
-const newTodoInput = document.getElementById('newTodo');
+ const newTodoInput = document.getElementById('newTodo');
 const addTodoButton = document.getElementById('addTodoButton');
 const todoList = document.getElementsByTagName('ul')[0];
 
@@ -88,3 +88,9 @@ todoList.addEventListener('click', (event) => {
     handleLiClick(event);
   }
 });
+
+const delete = document.getElementById('delete');
+
+delete.onclick = function() {
+
+}
