@@ -2,12 +2,34 @@ const newTodoInput = document.getElementById('newTodo');
 const addTodoButton = document.getElementById('addTodoButton');
 const todoList = document.getElementsByTagName('ul')[0];
 
+function createEditIcon() {
+  const iNode = document.createElement('i');
+  iNode.classList.add('fa');
+  iNode.classList.add('fa-pencil');
+  iNode.addEventListener('click', handleEditClick);
+  return iNode;
+}
+
+function handleEditSubmit(event) {
+  if (event.key === 'Enter' && event.target.value !== '') {
+    const liNode = event.target.parentNode;
+    const inputText = event.target.value;
+    const inputNode = event.target.cloneNode();
+    inputNode.value = '';
+    liNode.innerText = inputText;
+    inputNode.style.display = 'none';
+    liNode.appendChild(inputNode);
+    liNode.appendChild(createEditIcon());
+  }
+}
+
 function handleEditClick(event) {
   const liNode = event.target.parentNode;
   const liText = liNode.innerText;
   const inputNode = liNode.getElementsByTagName('input')[0].cloneNode();
   inputNode.style.display = 'inline-block';
   inputNode.value = liText;
+  inputNode.addEventListener('keydown', handleEditSubmit);
   liNode.innerText = '';
   liNode.appendChild(inputNode);
 }
@@ -16,16 +38,12 @@ function addNewLi() {
   const newTodoText = newTodoInput.value;
   if (newTodoText !== '') {
     const newLiNode = document.createElement('li');
-    const iNode = document.createElement('i');
     const inputEditNode = document.createElement('input');
 
-    iNode.classList.add('fa');
-    iNode.classList.add('fa-pencil');
-    iNode.addEventListener('click', handleEditClick);
     inputEditNode.style.display = 'none';
     newLiNode.innerText = `${newTodoText} `;
     newLiNode.appendChild(inputEditNode);
-    newLiNode.appendChild(iNode);
+    newLiNode.appendChild(createEditIcon());
     todoList.appendChild(newLiNode);
     newTodoInput.value = '';
   }
