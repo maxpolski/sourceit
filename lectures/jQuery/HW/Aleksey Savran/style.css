@@ -1,0 +1,11 @@
+li {
+    cursor: pointer;
+}
+
+.completed {
+    text-decoration: line-through;
+}
+
+.editing {
+    cursor: pointer;
+}
