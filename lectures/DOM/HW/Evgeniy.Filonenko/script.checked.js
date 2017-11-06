@@ -1,4 +1,4 @@
- const newTodoInput = document.getElementById('newTodo');
+const newTodoInput = document.getElementById('newTodo');
 const addTodoButton = document.getElementById('addTodoButton');
 const todoList = document.getElementsByTagName('ul')[0];
 
@@ -83,14 +83,7 @@ newTodoInput.addEventListener('keydown', (event) => {
 });
 
 todoList.addEventListener('click', (event) => {
-  event.target.tagName;
   if (event.target.tagName === 'LI') {
     handleLiClick(event);
   }
 });
-
-const delete = document.getElementById('delete');
-
-delete.onclick = function() {
-
-}
