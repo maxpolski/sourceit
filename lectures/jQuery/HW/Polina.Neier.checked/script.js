@@ -1,7 +1,7 @@
 /* eslint-env browser */
 /* eslint-env jquery */
 
-$(document).ready(() => {
+$(document).ready(() => { // необязательно, если скрипт внизу цепляется
   const newTodoInput = $('#newTodo');
   const addTodoButton = $('#addTodoButton');
   const todoList = $('ul').first();

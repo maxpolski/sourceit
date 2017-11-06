@@ -1,3 +1,6 @@
+/* eslint-env browser */
+/* eslint-env jquery */
+
 function addElement() {
   const newText = $('#newTodo').val();
   $('#todoList').append('<li> <i class="fa fa-pencil"></i><i class="fa fa-times"></i>' + newText + '</li>');
