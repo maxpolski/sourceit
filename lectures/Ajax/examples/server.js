@@ -24,7 +24,7 @@ app.get('/todos', (req, res) =>
 app.post('/todo', (req, res) => {
   const newTodo = req.body.todo;
   lastTodoIndex += 1;
-  todos.push({ ...newTodo, id: lastTodoIndex, isCompleted: false });
+  todos.push(Object.assign({}, newTodo, { id: lastTodoIndex, isCompleted: false }));
   res.end();
 });
 
@@ -36,7 +36,7 @@ app.put('/todo', (req, res) => {
   } = req.body.todo;
   const todoToUpdateIndex = todos.findIndex(({ id }) => id === updatedTodoId);
 
-  todos[todoToUpdateIndex] = { ...todos[todoToUpdateIndex], isCompleted, title };
+  todos[todoToUpdateIndex] = Object.assign({}, todos[todoToUpdateIndex], { isCompleted, title });
   console.log('todos', todos);
   res.end();
 });
