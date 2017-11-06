@@ -1,7 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const fs = require('fs');
+const path = require('path');
 
 const app = express();
+app.use(express.static(`${path.resolve(__dirname)}/todoWithServer/public`));
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
 app.use(bodyParser.json());
 
 const todos = [{
@@ -15,6 +23,12 @@ const todos = [{
 }];
 
 let lastTodoIndex = todos[todos.length - 1].id;
+
+app.get('/', (req, res) => {
+  const indexFile = fs.readFileSync(`${path.resolve(__dirname)}/todoWithServer/index.html`);
+  res.set('Content-Type', 'text/html');
+  res.send(indexFile);
+});
 
 app.get('/todos', (req, res) =>
   res
