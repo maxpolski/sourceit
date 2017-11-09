@@ -1,0 +1,17 @@
+li {
+    cursor: pointer;
+}
+
+li.completed {
+    text-decoration: line-through;
+}
+
+li .fa {
+    right: 0;
+    top: 0;
+    margin: 5px;
+  }
+  
+  li .fa-pencil {
+    margin-left: 10px;
+  }
