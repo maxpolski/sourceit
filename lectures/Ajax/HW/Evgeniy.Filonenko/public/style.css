@@ -1,0 +1,133 @@
+* {
+  padding: 0;
+  margin: 0;
+  outline: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: Geneva, Arial, Helvetica, sans-serif;
+}
+
+@media screen and (max-width: 460px) {
+  body {
+    padding: 15px;
+  }
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+ul, #app {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+ul {
+  list-style: none;
+}
+
+#app {
+  position: relative;
+}
+
+#app > input {
+  width: 100%;
+  padding: 5px 85px 5px 10px;
+  border: 2px solid #908f8f;
+  outline: 0;
+  -webkit-box-shadow: 0 0 12px -1px #ccc;
+          box-shadow: 0 0 12px -1px #ccc;
+}
+
+#button-group {
+  width: 100%;
+}
+
+button {
+  background: none;
+  padding: 7px 10px;
+  border: 0;
+  outline: 0;
+  text-transform: uppercase;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:active {
+  padding: 8px 8px;
+}
+
+li {
+  margin-bottom: 10px;
+  font-size: 18px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #908f8f;
+  position: relative;
+}
+
+li:before {
+  font-family:'FontAwesome';
+  content: "\f08d";
+  font-size: 12px;
+  margin-right: 10px;
+}
+
+li:last-child {
+  margin-bottom: 15px;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+li:hover {
+  cursor: pointer;
+}
+
+li .fa {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+li .fa-pencil {
+  right: 25px;
+}
+
+li .fa-pencil:hover {
+  color: #13dc13;
+}
+
+li .fa-times:hover {
+  color: #da0f0f;
+}
+
+.completed {
+  text-decoration: line-through;
+}
+
+li input {
+  font-size: 16px;
+  border: 0;
+  border-bottom: 2px solid #908f8f;
+  padding: 3px 0;
+  width: 85%;
+}
