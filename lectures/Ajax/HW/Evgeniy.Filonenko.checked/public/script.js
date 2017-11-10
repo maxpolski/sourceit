@@ -39,6 +39,7 @@ function removeTask(e) {
 }
 
 function saveTask(e) {
+  //можно было просто проверить, что кнопка -- Enter, а не НЕ Enter
   if (e.key && e.key !== 'Enter') {
     return false;
   }
@@ -78,6 +79,7 @@ function addNewTask(e, input, conteiner) {
 function isExistTask(task, conteiner) {
   const allTasks = conteiner.getElementsByTagName('li');
   if (allTasks.length) {
+    // какой метод массива можно было заюзать?
     for (let i = 0; i < allTasks.length; i++) {
       if (allTasks[i].innerText === task) {
         return true;

@@ -39,6 +39,7 @@ function remove(event) {
 }
 
 function confirmBtn(event) {
+  // давайте не будем копировать код друг друга))
   if (event.key && event.key !== 'Enter') {
     return false;
   }
