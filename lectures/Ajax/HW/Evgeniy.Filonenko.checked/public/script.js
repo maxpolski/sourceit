@@ -40,6 +40,11 @@ function removeTask(e) {
 
 function saveTask(e) {
   //можно было просто проверить, что кнопка -- Enter, а не НЕ Enter
+
+  // можно если обернуть весь код в if в котором проверить e.key === Enter
+  // но я выше на строке 33 добавил кнопку и повесил на неё click и эту ф-ю как колбек
+  // то тогда событие click по кнопке не сработает так как e.key вернет undefined
+  
   if (e.key && e.key !== 'Enter') {
     return false;
   }
@@ -80,11 +85,18 @@ function isExistTask(task, conteiner) {
   const allTasks = conteiner.getElementsByTagName('li');
   if (allTasks.length) {
     // какой метод массива можно было заюзать?
-    for (let i = 0; i < allTasks.length; i++) {
-      if (allTasks[i].innerText === task) {
-        return true;
-      }
-    }
+    // for (let i = 0; i < allTasks.length; i++) {
+    //   if (allTasks[i].innerText === task) {
+    //     return true;
+    //   }
+    // }
+
+    // это же не масив а псевдомасив у него нет этих методов
+    // можно было бы вот так сделать
+    // но я решил что for самое простое решение
+    return Array.prototype.some.call(allTasks, function(el) {
+        return el.innerText === task;
+    });
   }
   return false;
 }
