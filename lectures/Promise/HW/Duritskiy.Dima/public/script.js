@@ -34,6 +34,7 @@ function createNewLi (){
   newLi.appendChild(editNode);
   newLi.appendChild(deleteNode);
   todoList.appendChild(newLi);
+  
   newInput.value = '';
   }
 }
@@ -42,6 +43,7 @@ function addMode(del, edit, input) {
   del.classList.add('fa');
   del.classList.add('fa-times');
   del.addEventListener('click', handleDelate);
+  //del.addEventListener('click', deleteLi);
   edit.classList.add('fa');
   edit.classList.add('fa-pencil');
   edit.addEventListener('click', handleEditClick);
@@ -118,6 +120,16 @@ function postLi() {
     }
   }
 
+// function deleteLi (){
+//   const xhr = new XMLHttpRequest();
+//   xhr.open('DELETE', '/todo', true);
+//   xhr.onload = function () {
+//     const delLi = JSON.parse(xhr.responseText);
+//     if (xhr.readyState === 4 && xhr.status === 200){
+//       console.log('Deleted');
+//     }
+//   }
+// }
 loadTodosButton.addEventListener('click', loadTodos);
 newLiBtn.addEventListener('click', createNewLi);
 newInput.addEventListener('keydown', (event) => {
