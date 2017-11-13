@@ -1,83 +1,46 @@
+/*
+    GET localhost:3000/todos?a=3&b=fajsdfalksfjd&c=4
+      [{
+        title: <string>,
+        isCompleted: <bool>
+      }]
+    POST localhost:3000/todo
+        body: {
+            todo: {
+                title: <String>
+            }
+        }
+    PUT localhost:3000/todo
+        body: {
+          todo: {
+            id: <Number>,
+            [isCompleted: <Bool>,]
+            [title: <String>,]
+          }
+        }
+    DELETE
+    OPTIONS
+
+    скинуть ссылку на методы запросов
+*/
+
 const loadTodosButton = document.getElementById('loadTodos');
 const todoList = document.getElementById('todoList');
-const newLiBtn = document.getElementById('newLi');
-const newInput = document.getElementById('inputText');
+const newTodoInput = document.getElementById('newTodo');
 
 function createLi(todo) {
   const newLi = document.createElement('LI');
-  const editNode = document.createElement('i');
-  const deleteNode = document.createElement('i');
-  const inputEditNode = document.createElement('input');
-  addMode(deleteNode, editNode, inputEditNode);
   newLi.innerText = todo.title;
+  newLi.setAttribute('data-id', todo.id);
   if (todo.isCompleted) {
     newLi.classList.add('completed');
   }
-  newLi.appendChild(inputEditNode);
-  newLi.appendChild(editNode);
-  newLi.appendChild(deleteNode);
+
   return newLi;
 }
 
-function createNewLi (){
-  const newText = newInput.value;
-  if (newText !== ''){
-  const newLi = document.createElement('LI');
-  const editNode = document.createElement('i');
-  const deleteNode = document.createElement('i');
-  const inputEditNode = document.createElement('input');
-  addMode(deleteNode, editNode, inputEditNode);
-  newLi.innerText = newText + ' ';
-  newLi.appendChild(inputEditNode);
-  newLi.appendChild(editNode);
-  newLi.appendChild(deleteNode);
-  todoList.appendChild(newLi);
-  newText.value = '';
-  }
-}
-
-function addMode(del, edit, input) {
-  del.classList.add('fa');
-  del.classList.add('fa-times');
-  del.addEventListener('click', handleDelate);
-  edit.classList.add('fa');
-  edit.classList.add('fa-pencil');
-  edit.addEventListener('click', handleEditClick);
-  input.style.display = 'none';
-}
-
-function handleLiClick(event) {
-  const liNode = event.target;
-  liNode.classList.toggle('completed');
-}
-
-function handleDelate(event) {
-  const liNode = event.target.parentNode;
-  const tempVar = liNode.parentNode;
-  tempVar.removeChild(liNode);
-}
-
-function handleEditClick(event) {
-  const liNode = event.target.parentNode;
-  const liText = liNode.innerText;
-  const inputNode = liNode.getElementsByTagName('input')[0].cloneNode();
-  const editBtn = liNode.getElementsByTagName('i')[0].cloneNode();
-  const deleteBtn = liNode.getElementsByTagName('i')[1].cloneNode();
-  inputNode.style.display = 'inline-block';
-  inputNode.value = liText;
-  liNode.innerText = '';
-  liNode.appendChild(inputNode);
-  liNode.addEventListener('keydown', function (event){
-     if (event.keyCode === 13){
-      const tempvar = event.target.parentNode;
-      tempvar.innerText = event.target.value;
-      tempvar.appendChild(editBtn);
-      tempvar.appendChild(deleteBtn);
-    }
-  });
-}
-
 function renderInitialList(todos) {
+  todoList.innerHTML = '';
   const liList = todos.map((todo) => {
     const newLiNode = createLi(todo);
     return newLiNode;
@@ -89,33 +52,57 @@ function renderInitialList(todos) {
 
 function loadTodos() {
   fetch('/todos')
-  .then((respone) => respone.json())
-  .then((todos) => renderInitialList(todos))
-  .catch(error => console.error(error))
+    .then(response => response.json())
+    .then(todos => renderInitialList(todos))
+    .catch(error => console.error(error));
 }
 
+function addTodoHandler(inputValue) {
+  fetch('/todo', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      todo: {
+        title: inputValue,
+      },
+    }),
+  }).then(() => loadTodos())
+    .catch(error => console.error(error));
+}
 
-// function loadTodos() {
-//   const xhr = new XMLHttpRequest();
-//   xhr.open('GET', '/todos', true);
-//   xhr.send();
-//   xhr.onreadystatechange = () => {
-//     if (xhr.readyState === 4 && xhr.status === 200) {
-//       const response = xhr.response;
-//       const todos = JSON.parse(response);
-//       renderInitialList(todos);
-//     }
-//   };
-// }
+function changeCompletionStatus(liNode) {
+  const todoId = liNode.getAttribute('data-id');
+  const todoCompletionStatus = liNode.classList.contains('completed');
+  const payload = {
+    todo: {
+      id: +todoId,
+      isCompleted: !todoCompletionStatus,
+    },
+  };
+
+  fetch('/todo', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  }).then(() => loadTodos())
+    .catch(error => console.error(error));
+}
+
+function onKeyDownHandler(event) {
+  if (event.key === 'Enter') {
+    addTodoHandler(event.target.value); // значение инпута
+    event.target.value = '';
+  }
+}
 
 loadTodosButton.addEventListener('click', loadTodos);
-newLiBtn.addEventListener('click', createNewLi);
-newInput.addEventListener('click', (event) => {
-if (event.key === 'Enter'){
-  createNewLi();}
-});
+newTodoInput.addEventListener('keydown', onKeyDownHandler);
 todoList.addEventListener('click', (event) => {
   if (event.target.tagName === 'LI') {
-    handleLiClick(event);
+    changeCompletionStatus(event.target);
   }
 });
