@@ -10,7 +10,14 @@
                 title: <String>
             }
         }
-    PUT
+    PUT localhost:3000/todo
+        body: {
+          todo: {
+            id: <Number>,
+            [isCompleted: <Bool>,]
+            [title: <String>,]
+          }
+        }
     DELETE
     OPTIONS
 
@@ -65,8 +72,24 @@ function addTodoHandler(inputValue) {
     .catch(error => console.error(error));
 }
 
-function changeCompletionStatus() {
-  console.log('clicked');
+function changeCompletionStatus(liNode) {
+  const todoId = liNode.getAttribute('data-id');
+  const todoCompletionStatus = liNode.classList.contains('completed');
+  const payload = {
+    todo: {
+      id: +todoId,
+      isCompleted: !todoCompletionStatus,
+    },
+  };
+
+  fetch('/todo', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  }).then(() => loadTodos())
+    .catch(error => console.error(error));
 }
 
 function onKeyDownHandler(event) {
@@ -80,6 +103,6 @@ loadTodosButton.addEventListener('click', loadTodos);
 newTodoInput.addEventListener('keydown', onKeyDownHandler);
 todoList.addEventListener('click', (event) => {
   if (event.target.tagName === 'LI') {
-    changeCompletionStatus(event);
+    changeCompletionStatus(event.target);
   }
 });
