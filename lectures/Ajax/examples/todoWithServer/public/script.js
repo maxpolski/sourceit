@@ -24,6 +24,7 @@ const newTodoInput = document.getElementById('newTodo');
 function createLi(todo) {
   const newLi = document.createElement('LI');
   newLi.innerText = todo.title;
+  newLi.setAttribute('data-id', todo.id);
   if (todo.isCompleted) {
     newLi.classList.add('completed');
   }
@@ -49,59 +50,24 @@ function loadTodos() {
     .catch(error => console.error(error));
 }
 
-// function loadTodos() {
-//   $.ajax('/todos', {
-//     async: true,
-//     method: 'GET',
-//     success: todos => renderInitialList(todos),
-//   });
-// }
+function addTodoHandler(inputValue) {
+  fetch('/todo', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      todo: {
+        title: inputValue,
+      },
+    }),
+  }).then(() => loadTodos())
+    .catch(error => console.error(error));
+}
 
-// function loadTodos() {
-//   const xhr = new XMLHttpRequest();
-//   xhr.open('GET', '/todos', true);
-//   xhr.send();
-//   xhr.onreadystatechange = () => {
-//     if (xhr.readyState === 4 && xhr.status === 200) {
-//       const response = xhr.response;
-//       const todos = JSON.parse(response);
-//       renderInitialList(todos);
-//     }
-//   };
-// }
-
-// function addTodoHandler(inputValue) {
-//   $.ajax('/todo', {
-//     async: true,
-//     data: JSON.stringify({
-//       todo: {
-//         title: inputValue,
-//       },
-//     }),
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     method: 'POST',
-//     success: () => loadTodos(),
-//   });
-// }
-
-// function addTodoHandler(inputValue) {
-//   const payload = {
-//     todo: {
-//       title: inputValue,
-//     },
-//   };
-//   const xhr = new XMLHttpRequest();
-//   xhr.open('POST', '/todo', true);
-//   xhr.setRequestHeader('Content-Type', 'application/json');
-//   xhr.send(JSON.stringify(payload));
-//   xhr.onreadystatechange = () => {
-//     if (xhr.readyState === 4 && xhr.status === 200) {
-//       loadTodos();
-//     }
-//   };
-// }
+function changeCompletionStatus() {
+  console.log('clicked');
+}
 
 function onKeyDownHandler(event) {
   if (event.key === 'Enter') {
@@ -112,3 +78,8 @@ function onKeyDownHandler(event) {
 
 loadTodosButton.addEventListener('click', loadTodos);
 newTodoInput.addEventListener('keydown', onKeyDownHandler);
+todoList.addEventListener('click', (event) => {
+  if (event.target.tagName === 'LI') {
+    changeCompletionStatus(event);
+  }
+});
