@@ -34,12 +34,8 @@ function createNewLi (){
   newLi.appendChild(editNode);
   newLi.appendChild(deleteNode);
   todoList.appendChild(newLi);
-  
-
-  
+  newInput.value = '';
   }
-  newText.value = '';
-  
 }
 
 function addMode(del, edit, input) {
@@ -134,5 +130,10 @@ todoList.addEventListener('click', (event) => {
   }
 });
 newLiBtn.addEventListener('click', () => postLi());
+newInput.addEventListener('keydown', () =>{
+  if (event.key === 'Enter'){
+    postLi();
+  }
+});
 
 
