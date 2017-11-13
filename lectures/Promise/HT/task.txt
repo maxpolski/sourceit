@@ -1,0 +1,5 @@
+﻿Добавить кнопку “Add” возле новой todo.
+
+https://learn.javascript.ru/promise
+И вот это прочитать
+Обязательно

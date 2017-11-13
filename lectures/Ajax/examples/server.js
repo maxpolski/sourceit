@@ -51,7 +51,6 @@ app.put('/todo', (req, res) => {
   const todoToUpdateIndex = todos.findIndex(({ id }) => id === updatedTodoId);
 
   todos[todoToUpdateIndex] = Object.assign({}, todos[todoToUpdateIndex], { isCompleted, title });
-  console.log('todos', todos);
   res.end();
 });
 
