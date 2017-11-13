@@ -42,6 +42,13 @@ function renderInitialList(todos) {
   });
 }
 
+function loadTodos() {
+  fetch('/todos')
+    .then(response => response.json())
+    .then(todos => renderInitialList(todos))
+    .catch(error => console.error(error));
+}
+
 // function loadTodos() {
 //   $.ajax('/todos', {
 //     async: true,
