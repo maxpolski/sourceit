@@ -30,11 +30,22 @@ const newTodoInput = document.getElementById('newTodo');
 
 function createLi(todo) {
   const newLi = document.createElement('LI');
-  newLi.innerText = todo.title;
+  const newTodoText = document.createElement('SPAN');
+  const editTodoInput = document.createElement('INPUT');
+  const iNode = document.createElement('I');
+  editTodoInput.classList.add('hidden');
+  newTodoText.innerText = todo.title;
   newLi.setAttribute('data-id', todo.id);
+  iNode.classList.add('fa');
+  iNode.classList.add('fa-pencil');
+
   if (todo.isCompleted) {
-    newLi.classList.add('completed');
+    newTodoText.classList.add('completed');
   }
+
+  newLi.appendChild(newTodoText);
+  newLi.appendChild(editTodoInput);
+  newLi.appendChild(iNode);
 
   return newLi;
 }
@@ -72,16 +83,7 @@ function addTodoHandler(inputValue) {
     .catch(error => console.error(error));
 }
 
-function changeCompletionStatus(liNode) {
-  const todoId = liNode.getAttribute('data-id');
-  const todoCompletionStatus = liNode.classList.contains('completed');
-  const payload = {
-    todo: {
-      id: +todoId,
-      isCompleted: !todoCompletionStatus,
-    },
-  };
-
+function updateTodo(payload) {
   fetch('/todo', {
     method: 'PUT',
     headers: {
@@ -90,6 +92,50 @@ function changeCompletionStatus(liNode) {
     body: JSON.stringify(payload),
   }).then(() => loadTodos())
     .catch(error => console.error(error));
+}
+
+function changeCompletionStatus(spanNode) {
+  const todoParentNode = spanNode.parentNode;
+  const todoId = todoParentNode.getAttribute('data-id');
+  const todoCompletionStatus = spanNode.classList.contains('completed');
+  const payload = {
+    todo: {
+      id: +todoId,
+      isCompleted: !todoCompletionStatus,
+    },
+  };
+
+  updateTodo(payload);
+}
+
+function handleEditModeEnter(iNode) {
+  const iParentNode = iNode.parentNode;
+  const spanNode = iParentNode.getElementsByTagName('span')[0];
+  const inputNode = iParentNode.getElementsByTagName('input')[0];
+
+  spanNode.classList.add('hidden');
+  iNode.classList.add('hidden');
+  inputNode.classList.remove('hidden');
+  inputNode.value = spanNode.innerText;
+  inputNode.focus();
+}
+
+function handleEditTodoInput(event) {
+  if (event.key === 'Enter') {
+    const newTodoValue = event.target.value;
+    if (newTodoValue !== '') {
+      const inputParentNode = event.target.parentNode;
+      const todoId = inputParentNode.getAttribute('data-id');
+      const payload = {
+        todo: {
+          id: +todoId,
+          title: newTodoValue,
+        },
+      };
+
+      updateTodo(payload);
+    }
+  }
 }
 
 function onKeyDownHandler(event) {
@@ -102,7 +148,15 @@ function onKeyDownHandler(event) {
 loadTodosButton.addEventListener('click', loadTodos);
 newTodoInput.addEventListener('keydown', onKeyDownHandler);
 todoList.addEventListener('click', (event) => {
-  if (event.target.tagName === 'LI') {
+  if (event.target.tagName === 'SPAN') {
     changeCompletionStatus(event.target);
+  }
+  if (event.target.tagName === 'I') {
+    handleEditModeEnter(event.target);
+  }
+});
+todoList.addEventListener('keydown', (event) => {
+  if (event.target.tagName === 'INPUT') {
+    handleEditTodoInput(event);
   }
 });
