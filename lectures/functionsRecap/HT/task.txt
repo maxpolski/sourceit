@@ -1,0 +1,28 @@
+Создать функцию-счетчик
+  createCounter([startCount], [incrementor]);
+  startCount - изначальное значение счетчика
+  incrementor - на какое значение увеличивать счетчик
+
+  пример1:
+  const counter = createCounter();
+  counter() // 0
+  counter() // 1
+  counter() // 2
+
+  etc.....
+
+  пример2:
+  const counter = createCounter(1);
+  counter() // 1
+  counter() // 2
+  counter() // 3
+
+  etc.....
+
+  пример2:
+  const counter = createCounter(50, 25);
+  counter() // 50
+  counter() // 75
+  counter() // 100
+
+  etc.....
