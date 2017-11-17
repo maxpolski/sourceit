@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const todoConteiner = document.getElementById('todoList');
 const todoInput = document.getElementById('newTask');
 const todoAddBtn = document.getElementById('addNewTask');
@@ -12,7 +13,6 @@ function addIcon(iconName, eventType, callback) {
 
   iNode.classList.add('fa');
   iNode.classList.add(iName);
-
   iNode.addEventListener(eventType, callback);
   return iNode;
 }
@@ -29,26 +29,27 @@ function editTaskOnServer(taskId, inputValue, isComplited) {
     },
   };
 
-  const xhr = new XMLHttpRequest();
-  xhr.open('PUT', '/todo', true);
-  xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.send(JSON.stringify(payload));
-  xhr.onreadystatechange = () => {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      // eslint-disable-next-line no-console
+  fetch('/todo', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+    .then(() => {
       console.log('Edit Successefull');
-    }
-  };
+    })
+    .catch(error => console.error(error));
 }
 
 /**
  * Edits completed status
  */
 function markAsDone(e) {
-  const elem = e.target;
+  const elem = e.target.parentNode;
   elem.classList.toggle('completed');
 
-  const text = elem.innerText;
+  const text = e.target.innerText;
   const data = elem.dataset;
   const isComplited = elem.classList.contains('completed') ? 1 : 0;
   editTaskOnServer(+data.id, text, isComplited);
@@ -59,16 +60,12 @@ function markAsDone(e) {
  */
 function editTask(e) {
   const liNode = e.target.parentNode;
-  const inputNode = liNode.getElementsByTagName('input')[0].cloneNode();
-  const liText = liNode.innerText;
+  const inputNode = liNode.getElementsByTagName('input')[0];
+  const liText = liNode.getElementsByTagName('span')[0].innerText;
 
-  inputNode.style.display = 'inline-block';
+  liNode.classList.add('edit');
   inputNode.value = liText;
-  liNode.innerText = '';
-
-  inputNode.addEventListener('keydown', saveTask);
-  liNode.appendChild(inputNode);
-  liNode.appendChild(addIcon('check', 'click', saveTask));
+  inputNode.focus();
 }
 
 /**
@@ -88,24 +85,22 @@ function saveTask(e) {
   }
 
   const liNode = e.target.parentNode;
-  const inputNode = liNode.getElementsByTagName('input')[0].cloneNode();
+  const inputNode = liNode.getElementsByTagName('input')[0];
   const inputText = inputNode.value;
+
   if (inputText === '') {
     liNode.classList.add('error');
   } else {
     liNode.classList.remove('error');
+    liNode.classList.remove('edit');
+
     const data = liNode.dataset;
     const isComplited = liNode.classList.contains('completed') ? 1 : 0;
 
     editTaskOnServer(+data.id, inputText, isComplited);
 
     inputNode.value = '';
-    inputNode.style.display = 'none';
-
-    liNode.innerText = inputText;
-    liNode.appendChild(inputNode);
-    liNode.appendChild(addIcon('pencil', 'click', editTask));
-    liNode.appendChild(addIcon('times', 'click', removeTask));
+    liNode.getElementsByTagName('span')[0].innerText = inputText;
   }
   return true;
 }
@@ -113,19 +108,24 @@ function saveTask(e) {
 /**
  * Adds a new task to the DOM
  */
-function addNewTask(taskId, input, inputText, conteiner) {
-  const inp = input;
+function addNewTask(taskId, inputText, conteiner, complited = false) {
   const newLi = document.createElement('LI');
   const newInp = document.createElement('INPUT');
+  const newSpan = document.createElement('SPAN');
 
   newLi.setAttribute('data-id', taskId);
-  newInp.style.display = 'none';
-  inp.value = '';
 
-  newLi.innerText = inputText;
+  if (complited) {
+    newLi.classList.add('completed');
+  }
+
+  newInp.addEventListener('keydown', saveTask);
+  newSpan.innerText = inputText;
+  newLi.appendChild(newSpan);
   newLi.appendChild(newInp);
   newLi.appendChild(addIcon('pencil', 'click', editTask));
   newLi.appendChild(addIcon('times', 'click', removeTask));
+  newLi.appendChild(addIcon('check', 'click', saveTask));
   conteiner.appendChild(newLi);
 }
 
@@ -136,6 +136,8 @@ function addNewTaskToServer(input, conteiner) {
   const inp = input;
   const inputText = inp.value;
 
+  inp.value = '';
+
   if (inputText !== '') {
     const payload = {
       todo: {
@@ -143,38 +145,28 @@ function addNewTaskToServer(input, conteiner) {
       },
     };
 
-    const promise = new Promise((resolve) => {
-      const xhr = new XMLHttpRequest();
-      xhr.open('POST', '/todo', true);
-      xhr.setRequestHeader('Content-Type', 'application/json');
-      xhr.send(JSON.stringify(payload));
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          // eslint-disable-next-line no-console
-          console.log('Added Successefull');
-          resolve();
-        }
-      };
-    });
-
-    promise.then(() => {
-      const xhr = new XMLHttpRequest();
-      xhr.open('GET', '/todos', true);
-      xhr.send();
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          const { response } = xhr;
-          const todos = JSON.parse(response);
-          let newId = 0;
-          Array.prototype.forEach.call(todos, (el) => {
-            if (el.title === inputText) {
-              newId = el.id;
-            }
-          });
-          addNewTask(newId, input, inputText, conteiner);
-        }
-      };
-    });
+    fetch('/todo', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    })
+      .then(() => {
+        console.log('Added Successefull');
+        return fetch('/todos');
+      })
+      .then(response => response.json())
+      .then((todos) => {
+        let newId = 0;
+        Array.prototype.forEach.call(todos, (el) => {
+          if (el.title === inputText) {
+            newId = el.id;
+          }
+        });
+        addNewTask(newId, inputText, conteiner);
+      })
+      .catch(error => console.error(error));
   }
 }
 
@@ -185,7 +177,8 @@ function isExistTask(task, conteiner) {
   const allTasks = conteiner.getElementsByTagName('li');
   if (allTasks.length) {
     return Array.prototype.some.call(allTasks, (el) => {
-      return el.innerText === task;
+      const tasksText = el.getElementsByTagName('span')[0].innerText;
+      return tasksText === task;
     });
   }
   return false;
@@ -197,19 +190,7 @@ function isExistTask(task, conteiner) {
 function addExistTask(todos, conteiner) {
   todos.forEach((elem) => {
     if (!isExistTask(elem.title, conteiner)) {
-      const newLi = document.createElement('LI');
-      const newInp = document.createElement('INPUT');
-      newLi.setAttribute('data-id', elem.id);
-
-      newInp.style.display = 'none';
-      if (elem.isCompleted) {
-        newLi.classList.add('completed');
-      }
-      newLi.innerText = elem.title;
-      newLi.appendChild(newInp);
-      newLi.appendChild(addIcon('pencil', 'click', editTask));
-      newLi.appendChild(addIcon('times', 'click', removeTask));
-      conteiner.appendChild(newLi);
+      addNewTask(elem.id, elem.title, conteiner, elem.isCompleted);
     }
   });
 }
@@ -218,20 +199,16 @@ function addExistTask(todos, conteiner) {
  * Load tasks from the server
  */
 function loadTasksFromServer(e, conteiner) {
-  const xhr = new XMLHttpRequest();
-  xhr.open('GET', '/todos', true);
-  xhr.send();
-  xhr.onreadystatechange = () => {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      const { response } = xhr;
-      const todos = JSON.parse(response);
+  fetch('/todos')
+    .then(response => response.json())
+    .then((todos) => {
       addExistTask(todos, conteiner);
-    }
-  };
+    })
+    .catch(error => console.error(error));
 }
 
 todoConteiner.addEventListener('click', (e) => {
-  if (e.target.tagName === 'LI') {
+  if (e.target.tagName === 'SPAN') {
     markAsDone(e);
   }
 });
