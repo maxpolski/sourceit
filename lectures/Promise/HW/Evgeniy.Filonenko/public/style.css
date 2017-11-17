@@ -141,8 +141,21 @@ li .fa-times:hover {
   color: #da0f0f;
 }
 
-.completed {
+.completed span {
   text-decoration: line-through;
+}
+
+.edit span,
+.edit .fa-pencil,
+.edit .fa-times,
+.fa-check,
+li input {
+  display: none;
+}
+
+.edit .fa-check,
+.edit input {
+  display: inline-block;
 }
 
 li input {
