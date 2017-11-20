@@ -1,3 +1,4 @@
+// можно было вот так createCounter(startCount = 0, incrementor = 1)...
 function createCounter(startCount, incrementor) {
   this.counter = startCount || 0;
   this.increment = incrementor || 1;

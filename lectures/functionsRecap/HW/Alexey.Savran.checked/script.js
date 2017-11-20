@@ -1,3 +1,4 @@
+// неожиданное решение, но прикольно)
 function createCounter(startCount, incrementor) {
   this.count = startCount;
   this.incrementor = incrementor;
