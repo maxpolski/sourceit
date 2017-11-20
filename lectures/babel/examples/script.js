@@ -1,3 +1,6 @@
-const foo = 'foo';
-const func = () => console.log(foo);
-func();
+import user from './user';
+import displayNameAndLastName, { displayName, displayLastName } from './helper';
+
+displayName(user);
+displayLastName(user);
+displayNameAndLastName(user);
