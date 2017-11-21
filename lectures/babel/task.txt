@@ -1,0 +1,6 @@
+http://es6-features.org/
+https://monsterlessons.com/project/lessons/webpack-2-ustanovka-i-nastrojka
+https://learn.javascript.ru/regular-expressions-javascript (regexp.pdf -- советую сохранить, это очень крутая шпаргалка)
+
+добавить css-loader -- https://github.com/webpack-contrib/css-loader
+
