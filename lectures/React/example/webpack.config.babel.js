@@ -1,10 +1,11 @@
 import path from 'path';
+
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 export default {
   entry: './src/app.jsx',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
   },
   module: {
