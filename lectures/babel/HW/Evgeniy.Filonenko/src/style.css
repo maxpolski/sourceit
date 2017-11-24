@@ -1,0 +1,11 @@
+.wrapper table {
+  border: 2px solid #333;
+}
+
+.wrapper table tr:not(:last-child) td {
+  border-bottom: 1px solid #eee;
+}
+
+.wrapper table td {
+  padding: 15px;
+}
