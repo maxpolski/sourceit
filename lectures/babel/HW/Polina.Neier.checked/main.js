@@ -1,7 +1,7 @@
 /* eslint-env browser */
 
-import { counter, counter1 } from './counters.js';
-import createCounter from './helper.js';
+import { counter, counter1 } from './counters';
+import createCounter from './helper';
 
 const counter2 = createCounter(0, -1);
 console.log(counter2());
