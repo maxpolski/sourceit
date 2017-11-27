@@ -21,4 +21,7 @@ export default {
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
   },
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
 };
