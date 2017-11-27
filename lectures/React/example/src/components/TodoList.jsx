@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import TodoItem from './TodoItem';
+import NewTodoInput from './NewTodoInput';
 
 export default class TodoList extends Component {
   constructor() {
@@ -18,6 +19,20 @@ export default class TodoList extends Component {
     };
   }
 
+  addNewTodo = (newTodoText) => {
+    const newTodoId = this.state.todos[this.state.todos.length - 1].id + 1;
+    this.setState({
+      todos: [
+        ...this.state.todos,
+        {
+          id: newTodoId,
+          name: newTodoText,
+          isCompleted: false,
+        },
+      ],
+    });
+  }
+
   render() {
     return (
       <div>
@@ -33,6 +48,7 @@ export default class TodoList extends Component {
             ))
           }
         </ul>
+        <NewTodoInput addNewTodo={this.addNewTodo} />
       </div>
     );
   }

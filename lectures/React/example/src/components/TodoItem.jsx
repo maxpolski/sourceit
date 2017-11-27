@@ -9,7 +9,7 @@ export default class TodoItem extends React.Component {
 
   render() {
     return (
-      <li>
+      <li className="todo-item">
         {this.props.name} and I&apos;m {this.props.isCompleted ? 'completed' : 'in progress'}
       </li>
     );
