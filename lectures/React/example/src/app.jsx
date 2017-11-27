@@ -7,5 +7,5 @@ const node = document.getElementById('app');
 
 render(
   <TodoList />,
-  node
+  node,
 );

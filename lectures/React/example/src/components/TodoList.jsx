@@ -21,7 +21,7 @@ export default class TodoList extends Component {
   render() {
     return (
       <div>
-        Hello I'm the TodoList Component
+        Hello I&apos;m the TodoList Component
         <ul>
           {
             this.state.todos.map(todo => (
