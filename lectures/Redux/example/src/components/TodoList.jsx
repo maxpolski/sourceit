@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import TodoItem from './TodoItem';
 import NewTodoInput from './NewTodoInput';
+import { ADD_TODO } from '../actions/todos';
 
 class TodoList extends Component {
   // toggleTodo = (id) => {
@@ -21,21 +22,19 @@ class TodoList extends Component {
   //   this.setState({ todos: newTodosList });
   // }
 
-  // addNewTodo = (newTodoText) => {
-  //   const newTodoId = this.state.todos[this.state.todos.length - 1].id + 1;
-  //   this.setState({
-  //     todos: [
-  //       ...this.state.todos,
-  //       {
-  //         id: newTodoId,
-  //         name: newTodoText,
-  //         isCompleted: false,
-  //       },
-  //     ],
-  //   });
-  // }
+  addNewTodo = (newTodoText) => {
+    const newTodoId = Date.now();
+    const newTodo = {
+      id: newTodoId,
+      name: newTodoText,
+      isCompleted: false,
+    };
 
-  foo = () => {}
+    this.props.dispatch({
+      type: ADD_TODO,
+      payload: newTodo,
+    });
+  }
 
   render() {
     return (
@@ -54,7 +53,7 @@ class TodoList extends Component {
             ))
           }
         </ul>
-        {/* <NewTodoInput addNewTodo={this.addNewTodo} /> */}
+        <NewTodoInput addNewTodo={this.addNewTodo} />
       </div>
     );
   }
@@ -70,6 +69,7 @@ TodoList.propTypes = {
     name: PropTypes.string,
     isCompleted: PropTypes.bool,
   })).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps)(TodoList);

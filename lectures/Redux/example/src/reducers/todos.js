@@ -1,3 +1,5 @@
+import { ADD_TODO } from '../actions/todos';
+
 const defaultState = [{
   id: 1,
   name: 'Buy milk',
@@ -8,4 +10,11 @@ const defaultState = [{
   isCompleted: true,
 }];
 
-export default (state = defaultState, action) => state;
+export default (state = defaultState, action) => {
+  switch (action.type) {
+    case ADD_TODO:
+      return [...state, action.payload];
+    default:
+      return state;
+  }
+};
