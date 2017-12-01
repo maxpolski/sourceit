@@ -1,2 +1,1 @@
-https://abraxabra.ru/react.js/ -- дока по реакту на русском
-https://reactjs.org/docs/hello-world.html -- на англ
+https://egghead.io/courses/getting-started-with-redux
