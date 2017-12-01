@@ -4,23 +4,16 @@ import PropTypes from 'prop-types';
 
 import TodoItem from './TodoItem';
 import NewTodoInput from './NewTodoInput';
-import { ADD_TODO } from '../actions/todos';
+import { ADD_TODO, CHANGE_TODO_STATUS } from '../actions/todos';
 
 class TodoList extends Component {
-  // toggleTodo = (id) => {
-  //   const todoIndex = this.state.todos.findIndex(todo => todo.id === id); // 0
-  //   const changedTodo = {
-  //     ...this.state.todos[todoIndex],
-  //     isCompleted: !this.state.todos[todoIndex].isCompleted,
-  //   };
-  //   const newTodosList = [
-  //     ...this.state.todos.slice(0, todoIndex),
-  //     changedTodo,
-  //     ...this.state.todos.slice(todoIndex + 1, this.state.todos.length),
-  //   ];
-
-  //   this.setState({ todos: newTodosList });
-  // }
+  toggleTodo = (id) => {
+    const todoToChange = this.props.todos.find(todo => todo.id === id);
+    this.props.dispatch({
+      type: CHANGE_TODO_STATUS,
+      payload: todoToChange,
+    });
+  }
 
   addNewTodo = (newTodoText) => {
     const newTodoId = Date.now();
@@ -48,7 +41,7 @@ class TodoList extends Component {
                 id={todo.id}
                 name={todo.name}
                 isCompleted={todo.isCompleted}
-                // toggleTodo={this.toggleTodo}
+                toggleTodo={this.toggleTodo}
               />
             ))
           }
