@@ -1,4 +1,8 @@
-import { ADD_TODO, CHANGE_TODO_STATUS } from '../actions/todos';
+import {
+  ADD_TODO,
+  CHANGE_TODO_STATUS,
+  GET_INITIAL_TODOS,
+} from '../actions/todos';
 
 const defaultState = [{
   id: 1,
@@ -27,6 +31,8 @@ export default (state = defaultState, action) => {
         ...state.slice(todoIndex + 1, state.length),
       ];
       return newState;
+    case GET_INITIAL_TODOS:
+      return [...action.payload];
     default:
       return state;
   }

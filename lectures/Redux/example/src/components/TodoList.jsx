@@ -4,15 +4,12 @@ import PropTypes from 'prop-types';
 
 import TodoItem from './TodoItem';
 import NewTodoInput from './NewTodoInput';
-import { ADD_TODO, CHANGE_TODO_STATUS } from '../actions/todos';
+import { addTodo, toggleTodo } from '../actions/todos';
 
 class TodoList extends Component {
   toggleTodo = (id) => {
     const todoToChange = this.props.todos.find(todo => todo.id === id);
-    this.props.dispatch({
-      type: CHANGE_TODO_STATUS,
-      payload: todoToChange,
-    });
+    this.props.toggleTodoAction(todoToChange);
   }
 
   addNewTodo = (newTodoText) => {
@@ -23,10 +20,7 @@ class TodoList extends Component {
       isCompleted: false,
     };
 
-    this.props.dispatch({
-      type: ADD_TODO,
-      payload: newTodo,
-    });
+    this.props.addTodoAction(newTodo);
   }
 
   render() {
@@ -56,13 +50,19 @@ const mapStateToProps = state => ({
   todos: state.todos,
 });
 
+const mapDispatchToProps = dispatch => ({
+  addTodoAction: addTodo(dispatch),
+  toggleTodoAction: toggleTodo(dispatch),
+});
+
 TodoList.propTypes = {
   todos: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
     isCompleted: PropTypes.bool,
   })).isRequired,
-  dispatch: PropTypes.func.isRequired,
+  addTodoAction: PropTypes.func.isRequired,
+  toggleTodoAction: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(TodoList);
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
