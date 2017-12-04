@@ -4,12 +4,14 @@ export const GET_INITIAL_TODOS = 'GET_INITIAL_TODOS';
 export const ADD_TODO = 'ADD_TODO';
 export const CHANGE_TODO_STATUS = 'CHANGE_TODO_STATUS';
 
-export const getInitialTodos = dispatch => () => {
-  dispatch({
-    type: GET_INITIAL_TODOS,
-    payload: [],
-  });
-};
+export const getInitialTodos = dispatch => () =>
+  getAllTodos()
+    .then((todoList) => {
+      dispatch({
+        type: GET_INITIAL_TODOS,
+        payload: todoList,
+      });
+    });
 
 export const addTodo = dispatch => newTodo => dispatch({
   type: ADD_TODO,

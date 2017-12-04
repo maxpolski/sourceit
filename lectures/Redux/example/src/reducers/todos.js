@@ -32,7 +32,7 @@ export default (state = defaultState, action) => {
       ];
       return newState;
     case GET_INITIAL_TODOS:
-      return [...action.payload];
+      return action.payload.map(todo => ({ ...todo, name: todo.title }));
     default:
       return state;
   }
