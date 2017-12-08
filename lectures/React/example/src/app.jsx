@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 
 import TodoList from './components/TodoList';
 
-import './assets/style.css';
+import './assets/style.scss';
 
 const node = document.getElementById('app');
 
