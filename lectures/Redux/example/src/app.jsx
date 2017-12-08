@@ -9,6 +9,8 @@ import './assets/style.css';
 
 const node = document.getElementById('app');
 
+console.log('store', store);
+
 render(
   <Provider store={store}>
     <TodoList />

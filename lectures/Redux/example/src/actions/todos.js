@@ -1,4 +1,8 @@
-import { getAllTodos } from '../api/todos';
+import {
+  getAllTodos,
+  addTodo as addTodoAPICall,
+  toggleTodo as toggleTodoAPICall,
+} from '../api/todos';
 
 export const GET_INITIAL_TODOS = 'GET_INITIAL_TODOS';
 export const ADD_TODO = 'ADD_TODO';
@@ -13,12 +17,21 @@ export const getInitialTodos = dispatch => () =>
       });
     });
 
-export const addTodo = dispatch => newTodo => dispatch({
-  type: ADD_TODO,
-  payload: newTodo,
-});
+export const addTodo = dispatch => newTodo =>
+  addTodoAPICall({ todo: { title: newTodo.name } })
+    .then(() => dispatch({
+      type: ADD_TODO,
+      payload: newTodo,
+    }));
 
-export const toggleTodo = dispatch => todoToChange => dispatch({
-  type: CHANGE_TODO_STATUS,
-  payload: todoToChange,
-});
+export const toggleTodo = dispatch => todoToChange =>
+  toggleTodoAPICall({
+    todo: {
+      ...todoToChange,
+      title: todoToChange.name,
+      isCompleted: !todoToChange.isCompleted,
+    },
+  }).then(() => dispatch({
+    type: CHANGE_TODO_STATUS,
+    payload: todoToChange,
+  }));
