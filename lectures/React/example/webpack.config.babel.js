@@ -1,6 +1,7 @@
 import path from 'path';
 
 import CopyWebpackPlugin from 'copy-webpack-plugin';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 
 export default {
   entry: './src/app.jsx',
@@ -19,17 +20,12 @@ export default {
       exclude: /(node_modules)/,
     }, {
       test: /\.scss$/,
-      use: [{
-        loader: 'style-loader', // creates style nodes from JS strings
-      }, {
-        loader: 'css-loader', // translates CSS into CommonJS
-      }, {
-        loader: 'sass-loader', // compiles Sass to CSS
-      }],
+      loader: ['style-loader', 'css-loader', 'sass-loader'],
     }],
   },
   plugins: [
     new CopyWebpackPlugin([{ from: './index.html' }]),
+    new UglifyJsPlugin(),
   ],
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
